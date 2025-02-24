@@ -23,6 +23,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Authantication model
+AUTH_USER_MODEL = 'users.RestaurantUser'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,8 +40,9 @@ INSTALLED_APPS = [
     'menu',
     'users',
     
-    #RESET API
+    # Third-party apps
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +126,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# JWT Authentication Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+# JWT Settings (optional)
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
